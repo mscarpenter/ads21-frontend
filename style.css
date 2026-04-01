@@ -1,0 +1,260 @@
+/* =====================================================
+   Card de Perfil — ADS 21 Front-end I
+   Autor: Mateus Carpenter
+   Referência: Apple × Vercel (minimalismo moderno)
+   Paleta acessível — sem dependência do vermelho
+   ===================================================== */
+
+/* === Tokens === */
+:root {
+    --bg:               #f9f9fb;
+    --card-bg:          #ffffff;
+    --text-primary:     #0a0a0a;
+    --text-secondary:   #6b6b6b;
+    --text-muted:       #adadad;
+    --border:           rgba(0, 0, 0, 0.07);
+    --border-strong:    rgba(0, 0, 0, 0.12);
+    --hover-bg:         #f4f4f6;
+    --ring-start:       #818cf8;
+    --ring-end:         #c084fc;
+    --shimmer:          rgba(129, 140, 248, 0.45);
+    --radius-card:      22px;
+    --radius-link:      10px;
+    --shadow-card:
+        0 1px 2px rgba(0, 0, 0, 0.04),
+        0 4px 12px rgba(0, 0, 0, 0.06),
+        0 16px 40px rgba(0, 0, 0, 0.05);
+}
+
+/* === Reset === */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* === Base === */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+
+    /* Fundo: gradiente mesh ultra-sutil (Apple-style) */
+    background-color: var(--bg);
+    background-image:
+        radial-gradient(ellipse at 15% 10%, rgba(99, 102, 241, 0.07) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 90%, rgba(168, 85, 247, 0.05) 0%, transparent 55%);
+
+    /* Flexbox: coluna, rodapé ancorado no fundo */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    min-height: 100vh;
+}
+
+/* === Área central — posiciona o card === */
+.pagina {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 1.5rem;
+}
+
+/* === Card === */
+.card {
+    position: relative;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    width: 360px;
+    padding: 0;
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+
+    /* Flexbox: empilha as seções */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Linha shimmer no topo — Vercel-style */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 12%;
+    right: 12%;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--shimmer),
+        transparent
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* === Seção: Identidade === */
+.card__identidade {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 2.25rem 2rem 1.75rem;
+}
+
+/* Anel com gradiente ao redor do avatar */
+.card__avatar-anel {
+    padding: 2.5px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--ring-start), var(--ring-end));
+    line-height: 0;
+}
+
+.card__avatar {
+    border-radius: 50%;
+    border: 2.5px solid var(--card-bg);
+    display: block;
+}
+
+.card__nome {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--text-primary);
+    margin-top: 0.15rem;
+}
+
+.card__cargo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* Pill badge — indica grupo/turma visualmente */
+.card__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.15em 0.55em;
+    background: var(--hover-bg);
+    border: 1px solid var(--border-strong);
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    letter-spacing: 0.03em;
+}
+
+/* === Separador entre seções === */
+.card__bio,
+.card__links {
+    border-top: 1px solid var(--border);
+}
+
+/* === Seção: Bio === */
+.card__bio {
+    padding: 1.5rem 2rem;
+}
+
+.card__secao-titulo {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 0.6rem;
+}
+
+.card__descricao {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+/* === Seção: Links === */
+.card__links {
+    padding: 1.5rem 2rem 1.75rem;
+}
+
+.card__lista-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.card__link {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.65rem 0.75rem;
+    border-radius: var(--radius-link);
+    border: 1px solid transparent;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.card__link:hover {
+    background-color: var(--hover-bg);
+    border-color: var(--border);
+}
+
+/* Foco: visível e acessível via teclado */
+.card__link:focus-visible {
+    outline: 2px solid var(--text-primary);
+    outline-offset: 2px;
+}
+
+.card__link-esquerda {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.card__link-svg {
+    width: 15px;
+    height: 15px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+/* Seta: micro-animação diagonal no hover */
+.card__link-seta {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.card__link:hover .card__link-seta {
+    transform: translate(2px, -2px);
+    color: var(--text-secondary);
+}
+
+/* === Rodapé === */
+.rodape-pagina {
+    text-align: center;
+    padding: 1.25rem;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+.rodape-pagina strong {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
